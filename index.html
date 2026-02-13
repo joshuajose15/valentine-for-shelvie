@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Be My Valentine?</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #fff0f5;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+.container {
+    padding: 60px 20px;
+}
+
+h1 {
+    font-size: 42px;
+    color: #d81b60;
+}
+
+button {
+    padding: 15px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.3s;
+}
+
+#yesBtn {
+    background: #ff4081;
+    color: white;
+}
+
+#noBtn {
+    background: #eeeeee;
+}
+
+.card-wrapper {
+    width: 100%;
+    overflow: hidden;
+    display: none;
+    margin-top: 40px;
+}
+
+.cards {
+    display: flex;
+    width: 200%;
+    transition: transform 0.5s ease;
+}
+
+.card {
+    width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.card-content {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    max-width: 500px;
+    margin: auto;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+video {
+    width: 100%;
+    border-radius: 12px;
+    margin-top: 15px;
+}
+
+.swipe-hint {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Will You Be My Valentine? 💕</h1>
+    <p>Joshua has something special to ask you 💌</p>
+
+    <button id="yesBtn">Yes 😍</button>
+    <button id="noBtn">No 😢</button>
+
+    <div class="card-wrapper" id="cardWrapper">
+        <div class="cards" id="cards">
+
+            <!-- CARD 1 - MESSAGE + VIDEO -->
+            <div class="card">
+                <div class="card-content">
+                    <h2>I'm so lucky to have you ❤️</h2>
+                    <p>
+                        My love, this Valentine’s Day means more to me than any other because I don’t know when we’ll get to celebrate it side by side again. So let’s just enjoy it and make it special, creating memories we’ll carry with us wherever life takes us. ❤️
+                    </p>
+
+                    <!-- REPLACE video.mp4 with your actual video file -->
+                    <video controls>
+                        <source src="cute.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+
+                    <div class="swipe-hint">
+                        👉 Swipe left or tap arrow to continue
+                    </div>
+
+                    <button onclick="nextCard()">➡️</button>
+                </div>
+            </div>
+
+            <!-- CARD 2 - DINNER INVITATION -->
+            <div class="card">
+                <div class="card-content">
+                    <h2>Dinner Date Invitation 🍷✨</h2>
+                    <p>Joshua officially invites you to a romantic dinner.</p>
+                    <p><strong>📅 Date:</strong> February 14th</p>
+                    <p><strong>⏰ Time:</strong> 6:00 PM</p>
+                    <p><strong>📍 Location:</strong> Calle Uno 😉</p>
+                    <p>Dress cute. I love you! 💕</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const wrapper = document.getElementById("cardWrapper");
+const cards = document.getElementById("cards");
+
+let startX = 0;
+let currentSlide = 0;
+
+yesBtn.addEventListener("click", () => {
+    wrapper.style.display = "block";
+    yesBtn.disabled = true;
+    noBtn.disabled = true;
+});
+
+noBtn.addEventListener("mouseover", () => {
+    const randomX = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    const randomY = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    noBtn.style.position = "absolute";
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+});
+
+function nextCard() {
+    currentSlide = 1;
+    cards.style.transform = "translateX(-50%)";
+}
+
+// Swipe support
+cards.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+});
+
+cards.addEventListener("touchend", (e) => {
+    let endX = e.changedTouches[0].clientX;
+    if (startX - endX > 50) {
+        nextCard();
+    }
+});
+</script>
+
+</body>
+</html>
